@@ -1,27 +1,26 @@
 package com.example.android.getmovielist;
 
+import com.google.auto.value.AutoValue;
+import com.google.gson.annotations.SerializedName;
+import com.ryanharter.auto.value.gson.GenerateTypeAdapter;
 import java.util.List;
 
 /**
  * data transfer object
  */
-public class ProductDto {
+@GenerateTypeAdapter
+@AutoValue
+public abstract class ProductDto {
 
-  private final String title;
-  private final List<ProductInfo> production_companies;
+  @SerializedName("title")
+  public abstract String title();
 
-  public String getTitle() {
-    return title;
+  @SerializedName("production_companies")
+  public abstract List<ProductInfo> productionCompanyList();
+
+  public static ProductDto create(String title, List<ProductInfo> productionCompanyList) {
+    return new AutoValue_ProductDto(title, productionCompanyList);
   }
 
-  public List<ProductInfo> getProduction_companies() {
-    return production_companies;
-  }
 
-  public ProductDto(String title,
-      List<ProductInfo> production_companies) {
-
-    this.title = title;
-    this.production_companies = production_companies;
-  }
 }

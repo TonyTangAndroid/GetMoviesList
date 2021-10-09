@@ -30,7 +30,7 @@ public class InfoLoader extends AsyncTaskLoader<List<ProductInfo>> {
         Log.i(LOG_TAG,"This is loadInBackground() method");
         try {
             ProductDto productDto = MovieRepository.fetch("cf23af04-e70f-4fb8-8222-9253aeb7a4a3");
-            return productDto.getProduction_companies();
+            return productDto.productionCompanyList();
         } catch (IOException e) {
            throw new RuntimeException(e);
         }
