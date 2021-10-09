@@ -1,23 +1,32 @@
 package com.example.android.getmovielist;
 
-public class ProductInfo {
+import androidx.annotation.Nullable;
+import com.google.auto.value.AutoValue;
+import com.google.gson.annotations.SerializedName;
+import com.ryanharter.auto.value.gson.GenerateTypeAdapter;
 
-    private final String logo_path;
-    private final String name;
-    private final String origin_country;
+@GenerateTypeAdapter
+@AutoValue
+abstract class ProductInfo {
 
-    public ProductInfo(String logo_path, String name, String origin_country) {
-        this.logo_path = logo_path;
-        this.name = name;
-        this.origin_country = origin_country;
-    }
-    public String getLogoPath(){
-        return logo_path;
-    }
-    public String getCompanyName(){
-        return name;
-    }
-    public String getOriginCountry(){
-        return origin_country;
-    }
+  // Failed to invoke public com.example.android.getmovielist.ProductDto() with no args
+//     Caused by: java.lang.NullPointerException: Null logoPath
+
+  //immutable
+  //explicit contract --> clear and easy to understand and maintain.
+
+  @Nullable
+  @SerializedName("logo_path")
+  abstract String logoPath();
+
+  @SerializedName("name")
+  abstract String companyName();
+
+  @SerializedName("origin_country")
+  abstract String originCountry();
+
+  public static ProductInfo create(String logoPath, String name, String originCountry) {
+    return new AutoValue_ProductInfo(logoPath, name, originCountry);
+  }
+
 }
