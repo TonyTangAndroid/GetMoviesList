@@ -5,9 +5,11 @@ import android.util.Log;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.loader.content.AsyncTaskLoader;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.List;
 
-public class InfoLoader extends AsyncTaskLoader<ArrayList<ProductInfo>> {
+public class InfoLoader extends AsyncTaskLoader<List<ProductInfo>> {
     public static final String LOG_TAG = AsyncTaskLoader.class.getSimpleName();
     private final String mUrl;
 
@@ -24,8 +26,13 @@ public class InfoLoader extends AsyncTaskLoader<ArrayList<ProductInfo>> {
 
     @Nullable
     @Override
-    public ArrayList<ProductInfo> loadInBackground() {
+    public List<ProductInfo> loadInBackground() {
         Log.i(LOG_TAG,"This is loadInBackground() method");
-        return QueryUtils.fetchProductInfoData(mUrl);
+        try {
+            ProductDto productDto = MovieRepository.fetch("cf23af04-e70f-4fb8-8222-9253aeb7a4a3");
+            return productDto.getProduction_companies();
+        } catch (IOException e) {
+           throw new RuntimeException(e);
+        }
     }
 }
