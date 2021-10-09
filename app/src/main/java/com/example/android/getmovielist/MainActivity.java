@@ -17,8 +17,9 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
-public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<ArrayList<ProductInfo>> {
+public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<List<ProductInfo>> {
     public static final String LOG_TAG = MainActivity.class.getSimpleName();
     private InfoAdapter mAdapter;
     private static final String MOVIE_LIST_URL =
@@ -54,13 +55,13 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
 
     @NonNull
     @Override
-    public Loader<ArrayList<ProductInfo>> onCreateLoader(int id, @Nullable Bundle bundle) {
+    public Loader<List<ProductInfo>> onCreateLoader(int id, @Nullable Bundle bundle) {
         Log.i(LOG_TAG, "This is onCreateLoader() callback");
         return new InfoLoader(MainActivity.this, MOVIE_LIST_URL);
     }
 
     @Override
-    public void onLoadFinished(@NonNull Loader<ArrayList<ProductInfo>> loader, ArrayList<ProductInfo> data) {
+    public void onLoadFinished(@NonNull Loader<List<ProductInfo>> loader, List<ProductInfo> data) {
         ProgressBar prgBar = (ProgressBar) findViewById(R.id.loading_bar);
         prgBar.setVisibility(View.GONE);
         Log.i(LOG_TAG, "This is onLoadFinished() callback");
@@ -73,7 +74,7 @@ public class MainActivity extends AppCompatActivity implements LoaderManager.Loa
     }
 
     @Override
-    public void onLoaderReset(@NonNull Loader<ArrayList<ProductInfo>> loader) {
+    public void onLoaderReset(@NonNull Loader<List<ProductInfo>> loader) {
         Log.i(LOG_TAG, "This is onLoaderReset() callback");
         mAdapter.clear();
     }
