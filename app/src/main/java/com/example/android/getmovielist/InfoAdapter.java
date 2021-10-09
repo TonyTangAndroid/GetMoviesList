@@ -29,14 +29,14 @@ public class InfoAdapter extends ArrayAdapter<ProductInfo> {
         ProductInfo currentProductInfo = getItem(position);
 
         ImageView imageView = (ImageView) listItemView.findViewById(R.id.company_logo);
-        String url = "https://image.tmdb.org/t/p/w500" + currentProductInfo.getLogoPath();
+        String url = "https://image.tmdb.org/t/p/w500" + currentProductInfo.logoPath();
         Glide.with(parent).load(url).error(R.drawable.no_data).into(imageView);
 
         TextView companyName = listItemView.findViewById(R.id.company_name);
-        companyName.setText(currentProductInfo.getCompanyName());
+        companyName.setText(currentProductInfo.companyName());
 
         TextView originCountry = listItemView.findViewById(R.id.origin_country);
-        String OriginCountryName = currentProductInfo.getOriginCountry();
+        String OriginCountryName = currentProductInfo.originCountry();
         String countryWithFlag = CountryFlags.getCountryFlagByCountryCode(OriginCountryName);
         originCountry.setText(countryWithFlag + " " + OriginCountryName);
 
