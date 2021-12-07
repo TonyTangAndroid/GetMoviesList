@@ -22,7 +22,7 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
   }
 
   public void bind(Article currentProductInfo) {
-    Glide.with(itemView).load(currentProductInfo.url()).error(R.drawable.no_data).into(imageView);
+    Glide.with(itemView).load(currentProductInfo.urlToImage()).error(R.drawable.no_data).into(imageView);
     tv_title.setText(currentProductInfo.title());
     tv_author.setText(currentProductInfo.author());
   }
