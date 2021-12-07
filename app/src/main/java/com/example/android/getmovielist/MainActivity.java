@@ -7,20 +7,15 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
-import android.widget.ListView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
-import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
-import com.jakewharton.rxbinding3.widget.TextViewAfterTextChangeEvent;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
-import java.lang.reflect.Array;
-import java.util.ArrayList;
+import io.reactivex.schedulers.Schedulers;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -50,7 +45,7 @@ public class MainActivity extends AppCompatActivity {
 
     searchKeyStream()
         .switchMapSingle(MovieRepository::newsStreaming)
-        .map(NewsDto::list)
+        .map(NewsDto::newsList)
         .observeOn(AndroidSchedulers.mainThread())
         .as(autoDisposable(from(this)))
         .subscribe(this::bindAdapter,this::onError);
@@ -66,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
   private Observable<String> searchKeyStream() {
     return RxTextView.textChanges(et_input)
         .skipInitialValue()
-        .debounce(500, TimeUnit.MILLISECONDS)
+        .debounce(500, TimeUnit.MILLISECONDS, Schedulers.io())
         .map(CharSequence::toString);
   }
 
