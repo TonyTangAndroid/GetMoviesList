@@ -1,4 +1,4 @@
 <resources>
     <string name="app_name">GetMovieList</string>
-  <string name="no_data">No News Matched the result</string>
+  <string name="no_data">Please input keyword</string>
 </resources>
