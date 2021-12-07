@@ -13,11 +13,11 @@ public class NewsViewHolder extends RecyclerView.ViewHolder {
   private final TextView tv_author;
   private final TextView tv_title;
 
-  public NewsViewHolder(@NonNull View listItemView) {
-    super(listItemView);
-    imageView = (ImageView) listItemView.findViewById(R.id.iv_thumb);
-    tv_author = listItemView.findViewById(R.id.tv_author);
-    tv_title = listItemView.findViewById(R.id.tv_title);
+  public NewsViewHolder(@NonNull View itemView) {
+    super(itemView);
+    imageView = (ImageView) itemView.findViewById(R.id.iv_thumb);
+    tv_author = itemView.findViewById(R.id.tv_author);
+    tv_title = itemView.findViewById(R.id.tv_title);
 
   }
 
