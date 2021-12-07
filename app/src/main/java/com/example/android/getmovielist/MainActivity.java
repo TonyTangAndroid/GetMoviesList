@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
 import com.jakewharton.rxbinding3.widget.TextViewAfterTextChangeEvent;
@@ -19,14 +20,16 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 import java.util.concurrent.TimeUnit;
 
 public class MainActivity extends AppCompatActivity {
 
   private TextView tv_empty_view;
   private EditText et_input;
-  private ListView newsListView;
+  private RecyclerView rv_news;
   private ProgressBar loading_bar;
+  private InfoAdapter adapter;
 
   @Override
   protected void onCreate(Bundle savedInstanceState) {
@@ -47,7 +50,6 @@ public class MainActivity extends AppCompatActivity {
     searchKeyStream()
         .switchMapSingle(MovieRepository::newsStreaming)
         .map(NewsDto::list)
-        .map(ArrayList::new)
         .observeOn(AndroidSchedulers.mainThread())
         .as(autoDisposable(from(this)))
         .subscribe(this::bindAdapter,this::onError);
@@ -74,18 +76,18 @@ public class MainActivity extends AppCompatActivity {
   }
 
 
-  private void bindAdapter(ArrayList<Article> arrayList) {
+  private void bindAdapter(List<Article> arrayList) {
     loading_bar.setVisibility(View.GONE);
-    newsListView.setAdapter(new InfoAdapter(this,arrayList));
+    adapter.bindData(arrayList);
   }
 
   private void initView() {
     et_input = findViewById(R.id.et_input);
     tv_empty_view = findViewById(R.id.tv_empty_view);
     loading_bar = findViewById(R.id.loading_bar);
-    newsListView = (ListView) findViewById(R.id.list);
-    newsListView.setEmptyView(tv_empty_view);
-    newsListView.setAdapter(new InfoAdapter(this, new ArrayList<>()));
+    rv_news = (RecyclerView) findViewById(R.id.rv_news);
+    adapter = new InfoAdapter();
+    rv_news.setAdapter(adapter);
   }
 
 

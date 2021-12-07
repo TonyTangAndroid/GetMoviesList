@@ -1,40 +1,41 @@
 package com.example.android.getmovielist;
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
-import android.widget.ImageView;
-import android.widget.TextView;
-import com.bumptech.glide.Glide;
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 import java.util.ArrayList;
+import java.util.List;
 
-public class InfoAdapter extends ArrayAdapter<Article> {
+public class InfoAdapter extends RecyclerView.Adapter<NewsViewHolder> {
 
-  public InfoAdapter(Activity context, ArrayList<Article> productInfo) {
-    super(context, 0, productInfo);
+  private final List<Article> list = new ArrayList<>();
+
+  public InfoAdapter() {
   }
 
-  @SuppressLint("SetTextI18n")
+  @SuppressLint("NotifyDataSetChanged")
+  public void bindData(List<Article> newDataList) {
+    list.clear();
+    list.addAll(newDataList);
+    notifyDataSetChanged();
+  }
+
+  @NonNull
   @Override
-  public View getView(int position, View convertView, ViewGroup parent) {
-    View listItemView = convertView;
-    if (listItemView == null) {
-      listItemView = LayoutInflater.from(getContext()).inflate(
-          R.layout.list_detail, parent, false);
-    }
-    Article currentProductInfo = getItem(position);
+  public NewsViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    return new NewsViewHolder(
+        LayoutInflater.from(parent.getContext()).inflate(R.layout.list_detail, parent, false));
+  }
 
-    ImageView imageView = (ImageView) listItemView.findViewById(R.id.iv_thumb);
-    TextView tv_author = listItemView.findViewById(R.id.tv_author);
-    TextView tv_title = listItemView.findViewById(R.id.tv_title);
+  @Override
+  public void onBindViewHolder(@NonNull NewsViewHolder holder, int position) {
+    holder.bind(list.get(position));
+  }
 
-    Glide.with(parent).load(currentProductInfo.url()).error(R.drawable.no_data).into(imageView);
-    tv_title.setText(currentProductInfo.title());
-    tv_author.setText(currentProductInfo.author());
-
-    return listItemView;
+  @Override
+  public int getItemCount() {
+    return list.size();
   }
 }
