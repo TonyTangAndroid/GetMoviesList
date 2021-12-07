@@ -12,6 +12,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import com.jakewharton.rxbinding3.view.RxView;
 import com.jakewharton.rxbinding3.widget.RxTextView;
@@ -79,6 +80,19 @@ public class MainActivity extends AppCompatActivity {
   private void bindAdapter(List<Article> arrayList) {
     loading_bar.setVisibility(View.GONE);
     adapter.bindData(arrayList);
+    updateViewVisibility(arrayList);
+  }
+
+  private void updateViewVisibility(List<Article> arrayList) {
+    if (arrayList.size()==0){
+      tv_empty_view.setVisibility(View.VISIBLE);
+      rv_news.setVisibility(View.GONE);
+      tv_empty_view.setText(R.string.no_data);
+    }else{
+      rv_news.setVisibility(View.VISIBLE);
+      tv_empty_view.setVisibility(View.GONE);
+
+    }
   }
 
   private void initView() {
@@ -86,6 +100,7 @@ public class MainActivity extends AppCompatActivity {
     tv_empty_view = findViewById(R.id.tv_empty_view);
     loading_bar = findViewById(R.id.loading_bar);
     rv_news = (RecyclerView) findViewById(R.id.rv_news);
+    rv_news.setLayoutManager(new LinearLayoutManager(this));
     adapter = new InfoAdapter();
     rv_news.setAdapter(adapter);
   }

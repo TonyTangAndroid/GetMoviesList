@@ -15,33 +15,31 @@
     android:layout_height="0dp"
     android:layout_weight="1">
 
-    <LinearLayout
+    <FrameLayout
       android:layout_width="match_parent"
-      android:layout_height="match_parent"
-      android:orientation="vertical">
+      android:layout_height="match_parent">
 
       <TextView
         android:id="@+id/tv_empty_view"
-        android:text="@string/no_data"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        android:text="@string/input_hint"
+        android:visibility="visible" />
 
       <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_news"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#D5D2B9"
-        android:divider="#00B0FF"
-        android:dividerHeight="1dp"
-        android:orientation="vertical" />
-    </LinearLayout>
+        android:visibility="gone" />
+    </FrameLayout>
 
     <ProgressBar
       android:id="@+id/loading_bar"
       style="@style/Widget.AppCompat.ProgressBar"
       android:layout_width="wrap_content"
       android:layout_height="wrap_content"
-      android:visibility="gone"
-      android:layout_centerInParent="true" />
+      android:layout_centerInParent="true"
+      android:visibility="gone" />
   </RelativeLayout>
 </LinearLayout>
