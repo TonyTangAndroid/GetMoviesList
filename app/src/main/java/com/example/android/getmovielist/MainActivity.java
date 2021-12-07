@@ -46,8 +46,6 @@ public class MainActivity extends AppCompatActivity {
 
     searchKeyStream()
         .switchMapSingle(MovieRepository::newsStreaming)
-        .map(NewsDto::newsList)
-        .onErrorReturnItem(Collections.emptyList())
         .observeOn(AndroidSchedulers.mainThread())
         .as(autoDisposable(from(this)))
         .subscribe(this::bindAdapter,this::onError);
@@ -63,7 +61,7 @@ public class MainActivity extends AppCompatActivity {
   private Observable<String> searchKeyStream() {
     return RxTextView.textChanges(et_input)
         .skipInitialValue()
-        .debounce(500, TimeUnit.MILLISECONDS, Schedulers.io())
+        .debounce(400, TimeUnit.MILLISECONDS, Schedulers.io())
         .map(CharSequence::toString);
   }
 
