@@ -16,6 +16,7 @@ import com.jakewharton.rxbinding3.widget.RxTextView;
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
+import java.util.Collections;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
 
@@ -46,6 +47,7 @@ public class MainActivity extends AppCompatActivity {
     searchKeyStream()
         .switchMapSingle(MovieRepository::newsStreaming)
         .map(NewsDto::newsList)
+        .onErrorReturnItem(Collections.emptyList())
         .observeOn(AndroidSchedulers.mainThread())
         .as(autoDisposable(from(this)))
         .subscribe(this::bindAdapter,this::onError);
