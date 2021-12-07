@@ -44,9 +44,14 @@ public class MainActivity extends AppCompatActivity {
         .map(ArrayList::new)
         .observeOn(AndroidSchedulers.mainThread())
         .as(autoDisposable(from(this)))
-        .subscribe(this::bindAdapter);
+        .subscribe(this::bindAdapter,this::onError);
 
     et_input.requestFocus();
+  }
+
+  private void onError(Throwable throwable) {
+    throwable.printStackTrace();
+    tv_empty_view.setText(throwable.getMessage());
   }
 
 
