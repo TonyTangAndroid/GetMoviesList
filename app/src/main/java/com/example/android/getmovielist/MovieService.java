@@ -14,5 +14,5 @@ public interface MovieService {
 
   //https://newsapi.org/v2/everything?q=tesla&apiKey=282a2471edf64e5c890e385daf87196d
   @GET("everything")
-  Single<ProductDto> news(@Query("q") String key);
+  Single<NewsDto> news(@Query("q") String key);
 }
