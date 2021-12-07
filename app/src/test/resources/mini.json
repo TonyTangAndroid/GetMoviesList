@@ -1,0 +1,12 @@
+{
+  "articles": [
+    {
+      "author": "Sean O'Kane",
+      "title": "JPMorgan says Tesla owes the bank $162 million",
+      "url": "https://www.theverge.com/2021/11/15/22784319/jpmorgan-tesla-lawsuit-162-million-stock-warrants-musk",
+      "urlToImage": "https://cdn.vox-cdn.com/thumbor/WvwRLzZgCTbUsTaqzjR-rIyxtmA=/0x146:2040x1214/fit-in/1200x630/cdn.vox-cdn.com/uploads/chorus_asset/file/19430216/acastro_191204_1777_elon_legal_0003.0.jpg"
+    }
+  ],
+  "status": "ok",
+  "totalResults": 14763
+}
