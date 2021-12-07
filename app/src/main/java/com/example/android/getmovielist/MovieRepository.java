@@ -12,9 +12,6 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
 
-  public static ProductDto fetch(String parameterUuid) throws IOException {
-    throw new RuntimeException();
-  }
 
   public static Single<NewsDto> newsStreaming(String key) {
     return service().news(key);
