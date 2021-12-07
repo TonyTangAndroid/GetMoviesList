@@ -6,6 +6,10 @@ import com.google.gson.GsonBuilder;
 import com.ryanharter.auto.value.gson.GenerateTypeAdapter;
 import io.reactivex.Single;
 import java.io.IOException;
+import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
+import okhttp3.logging.HttpLoggingInterceptor;
+import okhttp3.logging.HttpLoggingInterceptor.Level;
 import retrofit2.Retrofit;
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
@@ -26,7 +30,12 @@ public class MovieRepository {
         .baseUrl("https://newsapi.org/v2/")
         .addConverterFactory(GsonConverterFactory.create(enhancedGson))
         .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+        .client(new OkHttpClient.Builder().addInterceptor(logger()).build())
         .build();
     return retrofit.create(MovieService.class);
+  }
+
+  private static Interceptor logger() {
+    return new HttpLoggingInterceptor().setLevel(Level.BASIC);
   }
 }
