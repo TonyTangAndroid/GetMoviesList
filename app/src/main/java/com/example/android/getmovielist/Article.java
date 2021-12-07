@@ -22,6 +22,7 @@ public abstract class Article {
   @SerializedName("url")
   public abstract String url();
 
+  @Nullable
   @SerializedName("urlToImage")
   public abstract String urlToImage();
 
