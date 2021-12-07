@@ -20,7 +20,7 @@ public class NewDtoTest {
         String jsonString = new TestResourcesRule("mini.json").content();
 
         NewsDto newsDto = GsonTestUtil.gson().fromJson(jsonString, NewsDto.class);
-        Truth.assertThat(newsDto.list()).hasSize(1);
+        Truth.assertThat(newsDto.newsList()).hasSize(1);
         Truth.assertThat(newsDto.totalResults()).isEqualTo(14763);
     }
 }

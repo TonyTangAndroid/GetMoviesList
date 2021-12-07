@@ -19,7 +19,7 @@ public abstract class NewsDto {
   public abstract String status();
 
   @SerializedName("articles")
-  public abstract List<Article> list();
+  public abstract List<Article> newsList();
 
 
 }
