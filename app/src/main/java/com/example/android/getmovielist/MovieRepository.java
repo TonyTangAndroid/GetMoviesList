@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.ryanharter.auto.value.gson.GenerateTypeAdapter;
 import java.io.IOException;
 import retrofit2.Retrofit;
+import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 
 public class MovieRepository {
@@ -14,10 +15,10 @@ public class MovieRepository {
     Gson enhancedGson = new GsonBuilder()
         .registerTypeAdapterFactory(GenerateTypeAdapter.FACTORY)
         .create();
-    GsonConverterFactory factory = GsonConverterFactory.create(enhancedGson);
     Retrofit retrofit = new Retrofit.Builder()
-        .baseUrl("https://run.mocky.io/")
-        .addConverterFactory(factory)
+        .baseUrl("https://newsapi.org/v2/")
+        .addConverterFactory(GsonConverterFactory.create(enhancedGson))
+        .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
         .build();
     MovieService service = retrofit.create(MovieService.class);
     return service.listRepos(parameterUuid).execute().body();
